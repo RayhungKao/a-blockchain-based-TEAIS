@@ -4,12 +4,12 @@
 
 1. **Create a virtual environment**:
     ```sh
-    python3 -m venv venv
+    python3.12 -m venv .venv
     ```
 
 2. **Activate the virtual environment**:
     ```sh
-    source venv/bin/activate
+    source .venv/bin/activate
     ```
 
 3. **Install the required packages**:
