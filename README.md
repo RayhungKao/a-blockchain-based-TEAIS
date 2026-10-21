@@ -1,40 +1,32 @@
 # a-blockchain-based-TEAIS
 
-## Setup Instructions
+> **Archived.** This research continues in
+> [blockchain-based-teais-js](https://github.com/RayhungKao/blockchain-based-teais-js), which has the
+> current implementation, tests, and research notes.
 
-1. **Create a virtual environment**:
-    ```sh
-    python3.12 -m venv .venv
-    ```
+Third iteration (2024) of a blockchain-based triple-entry accounting information system, in
+Python. It reads asset transfers from `at.xlsx`, hashes each row with SHA-256, encrypts the
+amounts with Paillier (`phe`), and compares the homomorphic sum with an encryption of the plain
+sum.
 
-2. **Activate the virtual environment**:
-    ```sh
-    source .venv/bin/activate
-    ```
+Known problems, left as they were:
 
-3. **Install the required packages**:
-    ```sh
-    pip install -r requirements.txt
-    ```
+- `generate_zkp` / `verify_zkp` are not a zero-knowledge proof, and `verify_zkp` always returns
+  `False`: it compares a Paillier ciphertext with `0`. The current version replaces this with a
+  publicly verifiable opening of each company's encrypted total.
+- `generate_hashes` joins fields without a separator, so `["1", "23"]` and `["12", "3"]` hash the
+  same. The current version hashes a canonical JSON encoding.
+- There is no blockchain component yet.
 
-4. **Copy the `.env.sample` file to create a `.env` file**:
-    ```sh
-    cp .env.sample .env
-    ```
+## Setup
 
-5. **Open the `.env` file and replace the placeholder values with your actual keys**:
-    ```properties
-    PUBLIC_KEY_N='your_public_key_n_here'
-    PRIVATE_KEY_P='your_private_key_p_here'
-    PRIVATE_KEY_Q='your_private_key_q_here'
-    ```
+```sh
+python3.12 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.sample .env
+python3 main.py
+```
 
-6. **Run the main Python file**:
-    ```sh
-    python3 main.py
-    ```
-
-7. **Deactivate the virtual environment**:
-    ```sh
-    deactivate
-    ```
+Leave the values in `.env` empty: on the first run `main.py` generates a Paillier key pair and an
+RSA key pair and writes them there. Never commit `.env`.
