@@ -1,7 +1,7 @@
 # a-blockchain-based-TEAIS
 
 > **Archived.** This research continues in
-> [blockchain-based-teais-js](https://github.com/RayhungKao/blockchain-based-teais-js), which has the
+> [verifiable-teais](https://github.com/RayhungKao/verifiable-teais), which has the
 > current implementation, tests, and research notes.
 
 Third iteration (2024) of a blockchain-based triple-entry accounting information system, in
